@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+
+  function borrar(cod) {
+    const temp = articulos.filter((art)=>art.codigo !== cod);
+    setArticulos(temp)
+  }
+
+  const [articulos, setArticulos] = useState([{
+    codigo: 1,
+    descripcion: 'papas',
+    precio: 12.52
+  }, {
+    codigo: 2,
+    descripcion: 'naranjas',
+    precio: 21
+  }, {
+    codigo: 3,
+    descripcion: 'peras',
+    precio: 18.20
+  }]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <table border="1">
+        <thead><tr><th>Código</th><th>Descripción</th><th>Precio</th><th>Borra?</th></tr></thead>
+        <tbody>
+          {articulos.map(art => {
+            return (
+              <tr key={art.codigo}>
+                <td>
+                  {art.codigo}
+                </td>
+                <td>
+                  {art.descripcion}
+                </td>
+                <td>
+                  {art.precio}
+                </td>
+                <td>
+                  <button onClick={() => borrar(art.codigo)}>Borrar</button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
